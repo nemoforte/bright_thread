@@ -1,10 +1,13 @@
 import 'dart:isolate';
 
+import 'package:bright_thread/long_running_isolate.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key});
+  final LongRunningIsolate longRunningIsolate = LongRunningIsolate();
+
+  MyHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +41,13 @@ class MyHomePage extends StatelessWidget {
                   debugPrint('Result 3: $total');
                 },
                 child: const Text('Task 3'),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  double total = await longRunningIsolate.complexTask4();
+                  debugPrint('Result 4: $total');
+                },
+                child: const Text('Task 4'),
               ),
             ],
           ),
